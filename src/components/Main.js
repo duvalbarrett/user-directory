@@ -1,47 +1,57 @@
 import React, { useState } from "react";
 import data from "../data";
 import { DisplayNumber } from "./DisplayNumber";
+import { RegisterForm } from "./RegisterForm";
+// import {Route, Routes} from 'react-router-dom'
 
 export const displayNumberContext = React.createContext();
 
 export const Main = () => {
-
   let dataLength = data.length;
 
-const [count, setcount] = useState(0);
-const [users, setusers] = useState([])
-    
+  const [count, setcount] = useState(0)
+  const [toggle, settoggle] = useState(true)
 
-const deleteUser = () => {
-        setusers(prevState => {
-            return prevState.filter(user => user !== users[index])
-        })
-    }
-
-const handleEvent = (e) => {
-  if (count === data.length - 1) {
+  
+  const handleEventFwd = (e) => {
+    if (count === data.length - 1) {
       alert("What more do you want from me?");
     }
     setcount((prevCount) => prevCount + 1);
   };
 
-const handleEventBack = (e) => {
-  if (count === 0) {
+  const handleEventBack = (e) => {
+    if (count === 0) {
       alert("Never go back");
     } else {
       setcount((prevCount) => prevCount - 1);
     }
   };
 
+  const deleteHandler = () => {
+    data.splice(count, 1)
+    // count <= data.length - 1 ? setcount(count - 1) : setcount(count + 1)
+    // console.log('After splice,', data)
+    settoggle(!toggle)
+  }
+
+  const newUserHandler = () => {
+
+  }
+
+
+
   return (
-    <div id="main">
-      <displayNumberContext.Provider value={{count, dataLength}}>
-        <DisplayNumber />
-      </displayNumberContext.Provider>
-      <div className="usercard-data"></div>
+  
+    <div id="outer-layer">
+      <div id="top-display-number">
+        <displayNumberContext.Provider value={{ count, dataLength }}>
+          <DisplayNumber />
+        </displayNumberContext.Provider>
+      </div>
 
       <br />
-      <div id="previous-card-btn">
+      <div id="user-card-info">
         <h1>
           {data[count].name.first} {"" + data[count].name.last}
         </h1>
@@ -58,15 +68,28 @@ const handleEventBack = (e) => {
             <li>{data[count].favoriteMovies[2]}</li>
           </ol>
         </h2>
-
+      </div>
+      <div id="previous-card-btn">
         <button onClick={handleEventBack}>Back</button>
       </div>
+      <div id='delete-btn'>
+        <button onClick={deleteHandler}>Delete</button>
+      </div>
+      <div id='newuser-btn'>
+        <button onClick={newUserHandler}>New</button>
+      </div>
       <div id="next-card-btn">
-        <button onClick={(e) => {handleEvent(e)}}> Next</button>
+        <button onClick={handleEventFwd}>Next</button>
       </div>
-      <div>
-        <button onClick={deleteUser}>DELETE</button>
-      </div>
+      <RegisterForm data={data} />
+      
+      
+      {/* <div>
+        <Route>
+          <Route path='/register' component={RegisterForm} />
+        </Route>
+      </div> */}
     </div>
+
   );
 };
