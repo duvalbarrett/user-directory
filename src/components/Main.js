@@ -6,7 +6,7 @@ import { RegisterForm } from "./RegisterForm";
 
 export const displayNumberContext = React.createContext();
 
-export const Main = () => {
+export const Main = ({data}) => {
   let dataLength = data.length;
 
   const [count, setcount] = useState(0)

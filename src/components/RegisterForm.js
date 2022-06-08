@@ -1,149 +1,133 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from 'yup'
 
-export const RegisterForm = ({data}) => {
 
-// const [active, setactive] = useState('')
-
+const NewEmployee = ({ data }) => {
+  const [active, setActive] = useState("");
   const formik = useFormik({
-    initialValues: {
-      name: {
-        first:'',
-        last: ''
+      initialValues: {
+        id: data.length + 1,
+        name: {
+          first: '',
+          last: '',
+        },
+        city: '',
+        country: '',
+        title: '',
+        employer: '',
+        favoriteMovies: ['','',''],
       },
-      city:'',
-      country:'',
-      title: '',
-      employer: '',
-      movies: [
-      '',
-      '',
-      '']
-    },
-//     validationSchema: Yup.object({
-//         firstName: Yup.string()
-//         .max(15, 'Must be 15 characters or less'),
-//         // .required('Required Field'),
-//         lastName: Yup.string()
-//         .max(20, 'No more than 15 characters'),
-//         // .required('Required Field'),
-//         location: Yup.string()
-//         .max(100, 'Maximum of 100 characters'),
-// // ,        .required('Required Field'),
-//         title: Yup.string()
-//         .max(50, 'Must be 50 characters or less'),
-//         // .required('Required Field'),
-//         employer: Yup.string()
-//         .max(100, 'Max of 100 characters'),
-//         // .required('Required Field'),
-//         movies: Yup.string()
-//         .max(1000, 'Max of 1000 characters'),
-//         // .required('Required Field')
-
-//     }),
-    onSubmit: (values) => {
-     data.push(values)
-     alert(JSON.stringify(values, null, 2))
-    },
-  });
-
-  // console.log(formik.errors)
+      onSubmit: values => {
+          data.push(values)
+        alert(JSON.stringify(values, null, 2));
+        console.log(data)
+      },
+    });
 
   return (
-  <>
-  <form onSubmit={formik.handleSubmit}>
-        <h1>Register</h1>
-        <div className="input-container">
-        First Name: &nbsp;
-        <br />
-        <input 
-        id="firstName" 
-        name="firstName" 
+      <form onSubmit={formik.handleSubmit}>
+      <label htmlFor="name.first">First Name</label>
+      <input
+        id="name.first"
+        name="name.first"
         type="text"
-        placeholder="first name"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.firstName} /> 
-        {formik.touched.firstName & formik.errors.firstName ? <p>{formik.errors.firstName}</p> : null }
+        value={formik.values.name.first}
+      />
+      {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
 
-        <br />
-
-        Last Name: &nbsp;
-        <br />
-        <input 
-        id="lastName" 
-        name="lastName" 
-        type="text" 
-        placeholder='last name'
+      <label htmlFor="last">Last Name</label>
+      <input
+        id="name.last"
+        name="name.last"
+        type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.lastName} />
-        {formik.touched.lastName && formik.errors.lastName ? <p>{formik.errors.lastName}</p> : null}
+        value={formik.values.name.last}
+      />
+      {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
 
-        <br />
-
-        From:&nbsp;
-        <br />
-        <input 
-        id="location" 
-        name="location" 
-        type="text" 
-        placeholder='city and country'
+      <label htmlFor="city">City</label>
+      <input
+        id="city"
+        name="city"
+        type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.location} />
-        {formik.touched.location && formik.errors.location ? <p>{formik.errors.location}</p> : null}
+        value={formik.values.city}
+      />
+      {formik.touched.city && formik.errors.city ? <div>{formik.errors.city}</div> : null}
 
-        <br />
-
-        Job Title:&nbsp;
-        <br />
-        <input 
-        id="title" 
-        name="title" 
-        type="text" 
-        placeholder='job-title'
+      <label htmlFor="country">Country</label>
+      <input
+        id="country"
+        name="country"
+        type="country"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.title} />
-        {formik.touched.title && formik.errors.title ? <p>{formik.errors.title}</p> : null}
+        value={formik.values.country}
+      />
+      {formik.touched.country && formik.errors.country ? <div>{formik.errors.country}</div> : null}
 
-        <br />
-
-        Employer: &nbsp;
-        <br />
-        <input 
-        id="employer" 
-        name="employer" 
-        type="text" 
-        placeholder='employer'
+      <label htmlFor="employer">Employer</label>
+      <input
+        id="employer"
+        name="employer"
+        type="employer"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.employer} />
-        {formik.touched.employer && formik.errors.employer ? <p>{formik.errors.employer}</p> : null}
+        value={formik.values.employer}
+      />
+      {formik.touched.employer && formik.errors.employer ? <div>{formik.errors.employer}</div> : null}
 
-        <br />
-
-        Movies: &nbsp;
-        <br />
-        <input 
-        id="movies" 
-        name="movies" 
-        type="text" 
-        placeholder='favorite movies'
+      <label htmlFor="title">Title</label>
+      <input
+        id="title"
+        name="title"
+        type="title"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.movies} />
-        {formik.touched.movies && formik.errors.movies ? <p>{formik.errors.movies}</p> : null}
+        value={formik.values.title}
+      />
+      {formik.touched.title && formik.errors.title ? <div>{formik.errors.title}</div> : null}
 
-        </div>
-        <button type="submit">Register</button>
+      <label htmlFor="movie">Favorite Movie</label>
+      <input
+        id="favoriteMovies[0]"
+        name="favoriteMovies[0]"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.favoriteMovies[0]}
+      />
+      {formik.touched.favoriteMovies && formik.errors.favoriteMovies ? <div>{formik.errors.favoriteMovies}</div> : null}
+
+      <label htmlFor="movie">Second Favorite Movie</label>
+      <input
+        id="favoriteMovies[1]"
+        name="favoriteMovies[1]"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.favoriteMovies[1]}
+      />
+      {formik.touched.favoriteMovies && formik.errors.favoriteMovies ? <div>{formik.errors.favoriteMovies}</div> : null}
+
+      <label htmlFor="movie">Third Favorite Movie</label>
+      <input
+        id="favoriteMovies[2]"
+        name="favoriteMovies[2]"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.favoriteMovies[2]}
+      />
+      {formik.touched.favoriteMovies && formik.errors.favoriteMovies ? <div>{formik.errors.favoriteMovies}</div> : null}
+
+      <button type="submit">Submit</button>
     </form>
-
-    <div>
-  
-    </div>
-</>
-    );
+  );
 };
+
+export default NewEmployee;
